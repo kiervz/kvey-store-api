@@ -40,6 +40,7 @@ Route::group(['prefix' => 'v1'], function() {
         // is admin
 
         Route::get('cart', [CartController::class, 'index'])->name('cart.items');
+        Route::post('cart', [CartController::class, 'store'])->name('cart.store');
         Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
         Route::put('cart/update', [CartController::class, 'updateCartItem'])->name('cart.updateCartItem');
     });

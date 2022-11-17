@@ -24,6 +24,13 @@ class CartController extends Controller
         return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
     }
 
+    public function store(Request $request)
+    {
+        $cartItem = $this->cartService->storeCartItem($request);
+
+        return $this->customResponse('success', new CartResource($cartItem));
+    }
+
     public function selectCartItem(Request $request)
     {
         $cartItem = $this->cartService->selectCart($request);
