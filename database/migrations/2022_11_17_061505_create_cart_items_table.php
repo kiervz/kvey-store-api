@@ -20,10 +20,9 @@ class CreateCartItemsTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class, 'user_id');
             $table->foreignIdFor(Product::class, 'product_id');
-            $table->decimal('price', 12, 2);
             $table->integer('qty');
-            $table->timestamps();
             $table->string('status', 1)->default('P');
+            $table->timestamps();
         });
     }
 

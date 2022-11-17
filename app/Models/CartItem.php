@@ -12,8 +12,9 @@ class CartItem extends Model
     protected $fillable = [
         "user_id",
         "product_id",
-        "price",
-        "qty"
+        "qty",
+        "selected",
+        "status"
     ];
 
     public static $statusDescription = [
@@ -25,5 +26,15 @@ class CartItem extends Model
     public function getStatusTextAttribute()
     {
         return static::$statusDescription[$this->attributes['status']] ?? 'P';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\ShopController;
+use App\Http\Controllers\Api\V1\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +35,11 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('shop/{product}', [ShopController::class, 'showProduct'])->name('shop.showProduct');
 });
 
-// Route::group(['prefix' => 'v1'], function() {
-//     Route::group(['middleware' => ['auth:sanctum']], function() {
-//         // is admin
+Route::group(['prefix' => 'v1'], function() {
+    Route::group(['middleware' => ['auth:sanctum']], function() {
+        // is admin
 
-//         // is customer
-//     });
-// });
+        Route::get('cart', [CartController::class, 'index'])->name('cart.items');
+        Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
+    });
+});
