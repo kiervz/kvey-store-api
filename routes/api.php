@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
+use App\Http\Controllers\Api\V1\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,14 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::group(['prefix' => 'v1'], function() {
     Route::post('auth/register', [RegisterController::class, 'register'])->name('auth.register');
     Route::post('auth/login', [LoginController::class, 'login'])->name('auth.login');
+
+    Route::get('shop', [ShopController::class, 'showAllProducts'])->name('shop.showAllProducts');
 });
+
+// Route::group(['prefix' => 'v1'], function() {
+//     Route::group(['middleware' => ['auth:sanctum']], function() {
+//         // is admin
+
+//         // is customer
+//     });
+// });
