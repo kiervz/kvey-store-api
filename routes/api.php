@@ -41,5 +41,6 @@ Route::group(['prefix' => 'v1'], function() {
 
         Route::get('cart', [CartController::class, 'index'])->name('cart.items');
         Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
+        Route::put('cart/update', [CartController::class, 'updateCartItem'])->name('cart.updateCartItem');
     });
 });

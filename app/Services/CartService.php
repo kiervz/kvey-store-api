@@ -14,4 +14,19 @@ class CartService
 
         return $cartItem;
     }
+
+    public function updateCartItem($request)
+    {
+        $cartItem = CartItem::where('id', $request['cart_id'])->first();
+
+        if ($cartItem) {
+            if ($request['action'] === 'ADD') {
+                $cartItem->update(['qty' => $cartItem['qty'] + 1]);
+            } else if ($request['action'] === 'SUBTRACT') {
+                $cartItem->update(['qty' => $cartItem['qty'] - 1]);
+            }
+        }
+
+        return $cartItem;
+    }
 }

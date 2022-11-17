@@ -30,4 +30,11 @@ class CartController extends Controller
 
         return $this->customResponse('success', new CartResource($cartItem));
     }
+
+    public function updateCartItem(Request $request)
+    {
+        $cartItem = $this->cartService->updateCartItem($request);
+
+        return $this->customResponse('success', new CartResource($cartItem));
+    }
 }
