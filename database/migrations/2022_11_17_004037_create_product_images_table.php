@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\Product;
+
 class CreateProductImagesTable extends Migration
 {
     /**
@@ -15,6 +17,9 @@ class CreateProductImagesTable extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Product::class, 'product_id');
+            $table->string('name');
+            $table->string('url');
             $table->timestamps();
         });
     }
