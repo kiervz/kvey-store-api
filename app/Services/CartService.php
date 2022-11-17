@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Response;
 use App\Models\CartItem;
 
 class CartService
@@ -35,7 +36,7 @@ class CartService
         return $cartItem;
     }
 
-    public function updateCartItem($request)
+    public function updateQtyCartItem($request)
     {
         $cartItem = CartItem::where('id', $request['cart_id'])->first();
 
@@ -48,5 +49,23 @@ class CartService
         }
 
         return $cartItem;
+    }
+
+    public function updateStatusCartItem($request)
+    {
+        $cartItems = CartItem::whereIn('id', $request['cart_id'])->get();
+        $status = $request['status'];
+
+        try {
+            $test = CartItem::$statusDescription[$status];
+        } catch(\Exception $ex) {
+            return ["error" => "Please provide valid status. Undefined status: {$status}"];
+        }
+
+        foreach ($cartItems as $item) {
+            $item->update(['status' => strtoupper($request['status'])]);
+        }
+
+        return $cartItems;
     }
 }

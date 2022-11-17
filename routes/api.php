@@ -42,6 +42,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('cart', [CartController::class, 'index'])->name('cart.items');
         Route::post('cart', [CartController::class, 'store'])->name('cart.store');
         Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
-        Route::put('cart/update', [CartController::class, 'updateCartItem'])->name('cart.updateCartItem');
+        Route::put('cart/quantity', [CartController::class, 'updateQtyCartItem'])->name('cart.updateQtyCartItem');
+        Route::put('cart/status', [CartController::class, 'updateStatusCartItem'])->name('cart.updateStatusCartItem');
     });
 });
