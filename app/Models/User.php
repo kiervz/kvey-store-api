@@ -55,6 +55,6 @@ class User extends Authenticatable
 
     public function cartItems()
     {
-        return $this->hasMany(CartItem::class, 'user_id', 'id');
+        return $this->hasMany(CartItem::class, 'user_id', 'id')->whereNotIn('status', ['D', 'C']);
     }
 }
