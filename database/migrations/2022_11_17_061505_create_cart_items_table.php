@@ -23,6 +23,7 @@ class CreateCartItemsTable extends Migration
             $table->decimal('price', 12, 2);
             $table->integer('qty');
             $table->timestamps();
+            $table->string('status', 1)->default('P');
         });
     }
 

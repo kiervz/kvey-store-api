@@ -15,4 +15,15 @@ class CartItem extends Model
         "price",
         "qty"
     ];
+
+    public static $statusDescription = [
+        'P' => 'Pending',
+        'C' => 'Completed',
+        'D' => 'Deleted'
+    ];
+
+    public function getStatusTextAttribute()
+    {
+        return static::$statusDescription[$this->attributes['status']] ?? 'P';
+    }
 }
