@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('ulid', 40);
             $table->foreignIdFor(User::class, 'user_id');
-            $table->string('status', 2);
+            $table->string('status', 20);
             $table->decimal('total_amount', 12, 2);
             $table->string('type', 20);
             $table->string('session_id', 191);

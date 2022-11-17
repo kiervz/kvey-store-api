@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\ShopController;
 use App\Http\Controllers\Api\V1\CartController;
+use App\Http\Controllers\Api\V1\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,8 @@ Route::group(['prefix' => 'v1'], function() {
         Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
         Route::put('cart/quantity', [CartController::class, 'updateQtyCartItem'])->name('cart.updateQtyCartItem');
         Route::put('cart/status', [CartController::class, 'updateStatusCartItem'])->name('cart.updateStatusCartItem');
+
+        Route::post('checkout', [StripeController::class, 'checkout'])->name('checkout');
+        Route::post('checkout/success', [StripeController::class, 'success'])->name('checkout.success');
     });
 });
