@@ -31,6 +31,15 @@ class ProductService
             });
         }
 
+        if ($filter['price']) {
+            $priceRange = explode('-', $filter['price']);
+
+            $searchProducts->where(function($query) use ($priceRange) {
+                $query->where('actual_price', '>=', $priceRange[0])
+                    ->where('actual_price', '<=', $priceRange[1]);
+            });
+        }
+
         if ($sort === 'latest') {
             $searchProducts->orderBy('created_at', 'DESC');
         } else if ($sort === 'lowest-price') {
