@@ -15,6 +15,7 @@ class Order extends Model
         "status",
         "total_amount",
         "type",
+        "session_id",
         "submit_at",
         "process_at",
         "shipped_at",

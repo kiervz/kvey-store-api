@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('status', 2);
             $table->decimal('total_amount', 12, 2);
             $table->string('type', 20);
+            $table->string('session_id', 191);
             $table->timestamp('submit_at');
             $table->timestamp('process_at');
             $table->timestamp('shipped_at');
