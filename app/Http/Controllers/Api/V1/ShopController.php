@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 
+use App\Models\Product;
+
 class ShopController extends Controller
 {
     public function __construct(ProductService $productService)
@@ -27,5 +29,10 @@ class ShopController extends Controller
         $products = $this->productService->showAllProducts($sort, $search, $filter);
 
         return $this->customResponse('results', $products);
+    }
+
+    public function showProduct(Product $product)
+    {
+        return $this->customResponse('Product fetch successfully!', $product);
     }
 }

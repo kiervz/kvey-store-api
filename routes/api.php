@@ -31,6 +31,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::post('auth/login', [LoginController::class, 'login'])->name('auth.login');
 
     Route::get('shop', [ShopController::class, 'showAllProducts'])->name('shop.showAllProducts');
+    Route::get('shop/{product}', [ShopController::class, 'showProduct'])->name('shop.showProduct');
 });
 
 // Route::group(['prefix' => 'v1'], function() {
