@@ -20,15 +20,14 @@ class RegisterController extends Controller
         $ulid = Ulid::generate();
         $user = new User();
         $user->ulid = $ulid;
-        $user->firstname = $request['firstname'];
-        $user->lastname = $request['lastname'];
+        $user->name = $request['name'];
         $user->email = $request['email'];
         $user->password = Hash::make($request['password']);
         $user->role_id = User::CUSTOMER_ROLE;
         $user->status = User::STATUS_ACTIVE;
         $user->save();
 
-        if ($user->role_id === 2) {
+        if ($user->role_id === User::CUSTOMER_ROLE) {
             $user_info = new Customer();
             $user_info->user_id = $user['id'];
             $user_info->gender = $request['gender'];

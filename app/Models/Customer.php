@@ -21,4 +21,9 @@ class Customer extends Model
         "zip_code",
         "country_code"
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

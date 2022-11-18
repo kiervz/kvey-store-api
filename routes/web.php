@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\StripeController;
+use App\Http\Controllers\Api\V1\Auth\SocialAuthController;
 
 /*
 |--------------------------------------------------------------------------

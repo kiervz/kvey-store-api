@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
+use App\Http\Controllers\Api\V1\Auth\SocialAuthController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\ShopController;
 use App\Http\Controllers\Api\V1\CartController;
@@ -31,6 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::group(['prefix' => 'v1'], function() {
     Route::post('auth/register', [RegisterController::class, 'register'])->name('auth.register');
     Route::post('auth/login', [LoginController::class, 'login'])->name('auth.login');
+
+    /** Login Social Auth */
+    Route::get('auth/login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('socialauth.login');
+    Route::post('auth/callback/{provider}', [SocialAuthController::class, 'handleProviderCallback'])->name('socialauth.callback');
 
     Route::get('shop', [ShopController::class, 'showAllProducts'])->name('shop.showAllProducts');
     Route::get('shop/{product}', [ShopController::class, 'showProduct'])->name('shop.showProduct');
