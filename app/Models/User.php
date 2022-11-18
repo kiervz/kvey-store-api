@@ -24,13 +24,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         "ulid",
-        "firstname",
-        "lastname",
+        "name",
         "email",
         "email_verified_at",
         "role_id",
         "status",
-        "provider"
+        "provider",
+        "provider_id"
     ];
 
     /**
@@ -61,5 +61,10 @@ class User extends Authenticatable
     public function selectedCartItems()
     {
         return $this->hasMany(CartItem::class, 'user_id', 'id')->where('selected', 1)->whereNotIn('status', ['D', 'C']);
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'user_id', 'id');
     }
 }
