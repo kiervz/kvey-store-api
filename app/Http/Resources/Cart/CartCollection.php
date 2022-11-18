@@ -17,7 +17,8 @@ class CartCollection extends ResourceCollection
         return [
             'data' => $this->collection->transform(function($request) {
                 return [
-                    'product' => $request->product->name,
+                    'sku' => $request->product->sku,
+                    'name' => $request->product->name,
                     'slug' => $request->product->slug,
                     'brand' => $request->product->brand->name,
                     'price' => $request->product->actual_price,

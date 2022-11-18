@@ -11,7 +11,8 @@ class CartService
     {
         $cartItem = CartItem::where([
             'user_id' => $request->user()->id,
-            'product_id' => $request['product_id']
+            'product_id' => $request['product_id'],
+            'status' => 'P'
         ])->first();
 
         if ($cartItem) {

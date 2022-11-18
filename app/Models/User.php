@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CartItem::class, 'user_id', 'id')->whereNotIn('status', ['D', 'C']);
     }
+
+    public function selectedCartItems()
+    {
+        return $this->hasMany(CartItem::class, 'user_id', 'id')->where('selected', 1)->whereNotIn('status', ['D', 'C']);
+    }
 }
