@@ -23,19 +23,23 @@ use App\Http\Controllers\Api\V1\StripeController;
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/v1/auth/logout', [LoginController::class, 'logout'])->name('auth.logout');
-    Route::get('/v1/auth/me', function (Request $request) {
-        return $request->user();
+    Route::group(['prefix' => 'v1/auth'], function() {
+        Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
+        Route::get('me', function (Request $request) {
+            return $request->user();
+        });
     });
 });
 
 Route::group(['prefix' => 'v1'], function() {
-    Route::post('auth/register', [RegisterController::class, 'register'])->name('auth.register');
-    Route::post('auth/login', [LoginController::class, 'login'])->name('auth.login');
+    Route::group(['prefix' => 'auth'], function() {
+        Route::post('register', [RegisterController::class, 'register'])->name('auth.register');
+        Route::post('login', [LoginController::class, 'login'])->name('auth.login');
 
-    /** Login Social Auth */
-    Route::get('auth/login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('socialauth.login');
-    Route::post('auth/callback/{provider}', [SocialAuthController::class, 'handleProviderCallback'])->name('socialauth.callback');
+        /** Login Social Auth */
+        Route::get('login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('socialauth.login');
+        Route::post('callback/{provider}', [SocialAuthController::class, 'handleProviderCallback'])->name('socialauth.callback');
+    });
 
     Route::get('shop', [ShopController::class, 'showAllProducts'])->name('shop.showAllProducts');
     Route::get('shop/{product}', [ShopController::class, 'showProduct'])->name('shop.showProduct');
@@ -43,7 +47,7 @@ Route::group(['prefix' => 'v1'], function() {
 
 Route::group(['prefix' => 'v1'], function() {
     Route::group(['middleware' => ['auth:sanctum']], function() {
-        // is admin
+        /** is admin */
 
         Route::get('cart', [CartController::class, 'index'])->name('cart.items');
         Route::post('cart', [CartController::class, 'store'])->name('cart.store');
