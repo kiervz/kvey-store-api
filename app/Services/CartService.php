@@ -40,11 +40,12 @@ class CartService
     public function updateQtyCartItem($request)
     {
         $cartItem = CartItem::where('id', $request['cart_id'])->first();
+        $action = strtoupper($request['action']);
 
         if ($cartItem) {
-            if ($request['action'] === 'ADD') {
+            if ($action === 'ADD') {
                 $cartItem->update(['qty' => $cartItem['qty'] + 1]);
-            } else if ($request['action'] === 'SUBTRACT') {
+            } else if ($action === 'SUBTRACT') {
                 $cartItem->update(['qty' => $cartItem['qty'] - 1]);
             }
         }

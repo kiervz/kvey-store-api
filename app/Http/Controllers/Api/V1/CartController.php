@@ -8,6 +8,10 @@ use Illuminate\Http\Response;
 use App\Http\Resources\Cart\CartCollection;
 use App\Http\Resources\Cart\CartResource;
 use App\Services\CartService;
+use App\Http\Requests\Cart\CartStoreRequest;
+use App\Http\Requests\Cart\CartSelectRequest;
+use App\Http\Requests\Cart\CartUpdateQtyRequest;
+use App\Http\Requests\Cart\CartUpdateStatusRequest;
 
 use Auth;
 
@@ -25,28 +29,28 @@ class CartController extends Controller
         return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
     }
 
-    public function store(Request $request)
+    public function store(CartStoreRequest $request)
     {
         $cartItem = $this->cartService->storeCartItem($request);
 
         return $this->customResponse('success', new CartResource($cartItem));
     }
 
-    public function selectCartItem(Request $request)
+    public function selectCartItem(CartSelectRequest $request)
     {
         $cartItem = $this->cartService->selectCart($request);
 
         return $this->customResponse('success', new CartResource($cartItem));
     }
 
-    public function updateQtyCartItem(Request $request)
+    public function updateQtyCartItem(CartUpdateQtyRequest $request)
     {
         $cartItem = $this->cartService->updateQtyCartItem($request);
 
         return $this->customResponse('success', new CartResource($cartItem));
     }
 
-    public function updateStatusCartItem(Request $request)
+    public function updateStatusCartItem(CartUpdateStatusRequest $request)
     {
         $cartItems = $this->cartService->updateStatusCartItem($request);
 

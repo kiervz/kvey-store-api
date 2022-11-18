@@ -22,6 +22,7 @@ class CreateCartItemsTable extends Migration
             $table->foreignIdFor(Product::class, 'product_id');
             $table->integer('qty');
             $table->string('status', 1)->default('P');
+            $table->integer('selected')->default(0);
             $table->timestamps();
         });
     }
