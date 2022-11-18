@@ -53,7 +53,7 @@ class SocialAuthController extends Controller
                 'email' => $user['email'],
                 'provider' => $provider,
                 'provider_id' => $user['id'],
-                'role_id' => User::CUSTOMER_ROLE,
+                'role_id' => User::ROLE_CUSTOMER,
                 'status' => User::STATUS_ACTIVE,
                 'email_verified_at' => now()
             ]);

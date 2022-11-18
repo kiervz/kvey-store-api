@@ -17,17 +17,16 @@ class RegisterController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $ulid = Ulid::generate();
         $user = new User();
-        $user->ulid = $ulid;
+        $user->ulid = Ulid::generate();
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->password = Hash::make($request['password']);
-        $user->role_id = User::CUSTOMER_ROLE;
+        $user->role_id = User::ROLE_CUSTOMER;
         $user->status = User::STATUS_ACTIVE;
         $user->save();
 
-        if ($user->role_id === User::CUSTOMER_ROLE) {
+        if ($user->role_id === User::ROLE_CUSTOMER) {
             $user_info = new Customer();
             $user_info->user_id = $user['id'];
             $user_info->gender = $request['gender'];
