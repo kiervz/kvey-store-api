@@ -54,4 +54,11 @@ class StripeService
     {
         return \Stripe\Customer::retrieve($session->customer);
     }
+
+    public function constructEvent($payload, $sig_header, $endpoint_secret)
+    {
+        return \Stripe\Webhook::constructEvent(
+            $payload, $sig_header, $endpoint_secret
+        );
+    }
 }

@@ -81,8 +81,8 @@ class StripeController extends Controller
 
         $session = $this->stripeService->sessionCheckout($lineProducts);
 
-        $this->updateCartItems($cartItems);
         $this->createOrder($session->id, $totalAmount, $cartItems);
+        $this->updateCartItems($cartItems);
 
         return $session->url;
     }
@@ -106,5 +106,39 @@ class StripeController extends Controller
         } catch (\Exception $ex) {
             return $this->customResponse('Not Found.', [], Response::HTTP_NOT_FOUND, false);
         }
+    }
+
+    public function webhook()
+    {
+        $endpoint_secret = config('services.stripe.webhook_key');
+
+        $payload = @file_get_contents('php://input');
+        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $event = null;
+
+        try {
+            $event = $this->stripeService->constructEvent($payload, $sig_header, $endpoint_secret);
+        } catch(\UnexpectedValueException $e) {
+            return $this->customResponse('Invalid payload', [], Response::HTTP_BAD_REQUEST);
+        } catch(\Stripe\Exception\SignatureVerificationException $e) {
+            return $this->customResponse('Invalid signature', [], Response::HTTP_BAD_REQUEST);
+        }
+
+        switch ($event->type) {
+            case 'checkout.session.completed':
+                $session = $event->data->object;
+
+                $order = Order::where('session_id', $session->id)->first();
+
+                if ($order && $order->status === Order::UNPAID) {
+                    $order->update(['status' => Order::PAID]);
+                }
+
+            // ... handle other event types
+            default:
+                echo 'Received unknown event type ' . $event->type;
+        }
+
+        return $this->customResponse('success');
     }
 }

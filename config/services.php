@@ -33,7 +33,8 @@ return [
     'stripe' => [
         'base_uri' => env('STRIPE_BASE_URI'),
         'publishable_key' => env('STRIPE_PUBLISHABLE_KEY'),
-        'secret_key' => env('STRIPE_SECRET_KEY')
+        'secret_key' => env('STRIPE_SECRET_KEY'),
+        'webhook_key' => env('STRIPE_WEBHOOK_KEY')
     ]
 
 ];
