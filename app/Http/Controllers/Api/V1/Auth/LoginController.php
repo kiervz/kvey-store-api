@@ -22,13 +22,18 @@ class LoginController extends Controller
 
         if (Auth::validate($credentials)) {
             $user = User::where('email', $email)->first();
+
+            if ($user['status'] === User::STATUS_BANNED) {
+                return $this->customResponse('Login failed, your account has been disabled.', [], Response::HTTP_UNAUTHORIZED, false);
+            }
+
             $data = [
                 'user' => $user,
                 'token_type' => 'Bearer',
                 'token' => $user->createToken('authToken')->plainTextToken
             ];
         } else {
-            return $this->customResponse('Login Failed', [], Response::HTTP_UNAUTHORIZED, false);
+            return $this->customResponse('Login failed', [], Response::HTTP_UNAUTHORIZED, false);
         }
 
         return $this->customResponse('login successfully', $data, Response::HTTP_OK);

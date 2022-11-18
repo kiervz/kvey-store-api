@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Resources\User\UserResource;
 
 use App\Models\User;
 
@@ -62,8 +63,12 @@ class SocialAuthController extends Controller
             $loginUser = $createdUser;
         }
 
+        if ($loginUser['status'] === User::STATUS_BANNED) {
+            return $this->customResponse('Login failed, your account has been disabled.', [], Response::HTTP_UNAUTHORIZED, false);
+        }
+
         $data = [
-            'user' => $loginUser,
+            'user' => new UserResource($loginUser),
             'token_type' => 'Bearer',
             'token' => $loginUser->createToken('authToken')->plainTextToken
         ];

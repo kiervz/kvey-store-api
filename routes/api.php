@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\ShopController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\StripeController;
+use App\Http\Resources\User\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'v1/auth'], function() {
         Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
         Route::get('me', function (Request $request) {
-            return $request->user();
+            return new UserResource($request->user());
         });
     });
 });
