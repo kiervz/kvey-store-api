@@ -79,7 +79,7 @@ class SocialAuthController extends Controller
     public function validateProvider($provider)
     {
         if (!in_array($provider, ['facebook', 'github', 'google'])) {
-            return $this->customResponse('Please login using facebook, github or google', [], Response::HTTP_UNPROCESSABLE_ENTITY, false);
+            return $this->customResponse('Something went wrong, unable to login with social authentication.', [], Response::HTTP_UNPROCESSABLE_ENTITY, false);
         }
     }
 }

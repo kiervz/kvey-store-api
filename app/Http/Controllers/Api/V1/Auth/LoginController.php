@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Resources\User\UserResource;
 
 use App\Models\User;
 
@@ -28,7 +29,7 @@ class LoginController extends Controller
             }
 
             $data = [
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token_type' => 'Bearer',
                 'token' => $user->createToken('authToken')->plainTextToken
             ];
