@@ -33,7 +33,7 @@ class CartController extends Controller
     {
         $cartItem = $this->cartService->storeCartItem($request);
 
-        return $this->customResponse('success', new CartResource($cartItem));
+        return $this->customResponse('Product successfully added to your cart!', new CartResource($cartItem));
     }
 
     public function selectCartItem(CartSelectRequest $request)

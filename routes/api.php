@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\ShopController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\StripeController;
+use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Resources\User\UserResource;
 
 /*
@@ -41,6 +42,8 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('socialauth.login');
         Route::post('callback/{provider}', [SocialAuthController::class, 'handleProviderCallback'])->name('socialauth.callback');
     });
+
+    Route::apiResource('category', CategoryController::class);
 
     Route::get('shop', [ShopController::class, 'showAllProducts'])->name('shop.showAllProducts');
     Route::get('shop/{product}', [ShopController::class, 'showProduct'])->name('shop.showProduct');
