@@ -25,7 +25,8 @@ class CartUpdateQtyRequest extends FormRequest
     {
         return [
             'action' => 'required|string|in:add,subtract',
-            'cart_id' => 'required|integer'
+            'cart_id' => 'required|integer',
+            'total' => 'sometimes|integer|max:99'
         ];
     }
 

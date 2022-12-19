@@ -44,9 +44,9 @@ class CartService
 
         if ($cartItem) {
             if ($action === 'ADD') {
-                $cartItem->update(['qty' => $cartItem['qty'] + 1]);
+                $cartItem->update(['qty' => $cartItem['qty'] + ($request['total'] ?? 1)]);
             } else if ($action === 'SUBTRACT') {
-                $cartItem->update(['qty' => $cartItem['qty'] - 1]);
+                $cartItem->update(['qty' => $cartItem['qty'] - ($request['total'] ?? 1)]);
             }
         }
 
