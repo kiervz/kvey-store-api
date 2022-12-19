@@ -70,4 +70,9 @@ class CartService
 
         return $cartItems;
     }
+
+    public function deleteCartItem($request)
+    {
+        return CartItem::whereIn('id', $request['cart_item_id'])->delete();
+    }
 }

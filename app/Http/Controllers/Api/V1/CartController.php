@@ -12,6 +12,7 @@ use App\Http\Requests\Cart\CartStoreRequest;
 use App\Http\Requests\Cart\CartSelectRequest;
 use App\Http\Requests\Cart\CartUpdateQtyRequest;
 use App\Http\Requests\Cart\CartUpdateStatusRequest;
+use App\Http\Requests\Cart\CartDeleteRequest;
 
 use Auth;
 
@@ -59,5 +60,12 @@ class CartController extends Controller
         }
 
         return $this->customResponse('success', new CartCollection($cartItems));
+    }
+
+    public function destroy(CartDeleteRequest $request)
+    {
+        $this->cartService->deleteCartItem($request);
+
+        return $this->customResponse('Cart item deleted successfully!', [], Response::HTTP_NO_CONTENT);
     }
 }
