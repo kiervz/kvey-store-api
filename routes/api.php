@@ -54,7 +54,6 @@ Route::group(['prefix' => 'v1'], function() {
         /** is admin */
 
         Route::get('cart', [CartController::class, 'index'])->name('cart.items');
-        Route::get('cart/selected', [CartController::class, 'getSelectedCartItems'])->name('cart.getSelectedCartItems');
         Route::post('cart', [CartController::class, 'store'])->name('cart.store');
         Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
         Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
