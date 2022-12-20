@@ -30,25 +30,30 @@ class CartController extends Controller
         return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
     }
 
+    public function getSelectedCartItems()
+    {
+        return $this->customResponse('success', new CartCollection(Auth::user()->selectedCartItems));
+    }
+
     public function store(CartStoreRequest $request)
     {
-        $cartItem = $this->cartService->storeCartItem($request);
+        $this->cartService->storeCartItem($request);
 
-        return $this->customResponse('Product successfully added to your cart!', new CartResource($cartItem));
+        return $this->customResponse('Product successfully added to your cart!', new CartCollection(Auth::user()->cartItems));
     }
 
     public function selectCartItem(CartSelectRequest $request)
     {
-        $cartItem = $this->cartService->selectCart($request);
+        $this->cartService->selectCart($request);
 
-        return $this->customResponse('success', new CartResource($cartItem));
+        return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
     }
 
     public function updateQtyCartItem(CartUpdateQtyRequest $request)
     {
-        $cartItem = $this->cartService->updateQtyCartItem($request);
+        $this->cartService->updateQtyCartItem($request);
 
-        return $this->customResponse('success', new CartResource($cartItem));
+        return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
     }
 
     public function updateStatusCartItem(CartUpdateStatusRequest $request)
