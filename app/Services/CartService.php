@@ -73,6 +73,6 @@ class CartService
 
     public function deleteCartItem($request)
     {
-        return CartItem::whereIn('id', $request['cart_item_id'])->delete();
+        return CartItem::whereIn('id', $request['cart_item_id'])->update(['status' => 'D']);
     }
 }

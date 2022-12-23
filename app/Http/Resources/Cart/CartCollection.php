@@ -22,6 +22,7 @@ class CartCollection extends ResourceCollection
                     'name' => $request->product->name,
                     'slug' => $request->product->slug,
                     'brand' => $request->product->brand->name,
+                    'unit_price' => $request->product->unit_price,
                     'price' => $request->product->actual_price,
                     'discount' => $request->product->discount,
                     'qty' => $request->qty,
