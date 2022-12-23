@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\StripeService;
 use App\Http\Resources\Cart\CartResource;
+use App\Http\Resources\Cart\CartCollection;
 
 use App\Models\Order;
 
@@ -80,15 +81,14 @@ class StripeController extends Controller
         }
 
         $session = $this->stripeService->sessionCheckout($lineProducts);
-
         $this->createOrder($session->id, $totalAmount, $cartItems);
-        $this->updateCartItems($cartItems);
 
         return $session->url;
     }
 
     public function success(Request $request)
     {
+        $cartItems = $this->cartItems();
         $sessionId = $request->get('session_id');
 
         try {
@@ -101,8 +101,9 @@ class StripeController extends Controller
             if (!$order) return $this->customResponse('Not Found.', [], Response::HTTP_NOT_FOUND, false);
 
             $order->update(['status' => 'PAID']);
+            $this->updateCartItems($cartItems);
 
-            return $this->customResponse('success');
+            return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
         } catch (\Exception $ex) {
             return $this->customResponse('Not Found.', [], Response::HTTP_NOT_FOUND, false);
         }
@@ -132,6 +133,7 @@ class StripeController extends Controller
 
                 if ($order && $order->status === Order::UNPAID) {
                     $order->update(['status' => Order::PAID]);
+                    $this->updateCartItems($cartItems);
                 }
 
             // ... handle other event types
