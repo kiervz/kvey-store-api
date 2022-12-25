@@ -16,23 +16,23 @@ class ProductService
 
 
         if ($filter['brand']) {
-            $brandName = $filter['brand'];
+            $brands = explode(',', $filter['brand']);
 
-            $searchProducts->whereHas('brand', function($query) use ($brandName) {
-                $query->where('slug', $brandName);
+            $searchProducts->whereHas('brand', function($query) use ($brands) {
+                $query->whereIn('brand_id', $brands);
             });
         }
 
         if ($filter['category']) {
-            $categoryName = $filter['category'];
+            $categories = explode(',', $filter['category']);
 
-            $searchProducts->whereHas('category', function($query) use ($categoryName) {
-                $query->where('slug', $categoryName);
+            $searchProducts->whereHas('category', function($query) use ($categories) {
+                $query->whereIn('category_id', $categories);
             });
         }
 
         if ($filter['price']) {
-            $priceRange = explode('-', $filter['price']);
+            $priceRange = $filter['price'];
 
             $searchProducts->where(function($query) use ($priceRange) {
                 $query->where('actual_price', '>=', $priceRange[0])
@@ -40,14 +40,14 @@ class ProductService
             });
         }
 
-        if ($sort === 'latest') {
+        if ($sort === 'latest-arrival') {
             $searchProducts->orderBy('created_at', 'DESC');
-        } else if ($sort === 'lowest-price') {
+        } else if ($sort === 'low-high') {
             $searchProducts->orderBy('actual_price', 'ASC');
-        } else if ($sort === 'highest-price') {
+        } else if ($sort === 'high-low') {
             $searchProducts->orderBy('actual_price', 'DESC');
         }
 
-        return $searchProducts->paginate(30);
+        return $searchProducts->paginate($filter['paginate'] ?? 30);
     }
 }

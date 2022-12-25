@@ -26,6 +26,7 @@ class ShopController extends Controller
             'brand' => $request->get('brand'),
             'category' => $request->get('category'),
             'price' => $request->get('price'),
+            'paginate' => $request->get('paginate')
         ];
 
         $products = $this->productService->showAllProducts($sort, $search, $filter);
