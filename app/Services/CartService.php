@@ -53,6 +53,15 @@ class CartService
         return $cartItem;
     }
 
+    public function updateQtyCartItemManual($request)
+    {
+        $cartItem = CartItem::where('id', $request['cart_id'])->first();
+
+        $cartItem->update(['qty' => $request['qty']]);
+
+        return $cartItem;
+    }
+
     public function updateStatusCartItem($request)
     {
         $cartItems = CartItem::whereIn('id', $request['cart_id'])->get();

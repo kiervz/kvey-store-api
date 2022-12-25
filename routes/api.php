@@ -58,6 +58,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
         Route::put('cart/select', [CartController::class, 'selectCartItem'])->name('cart.selectCartItem');
         Route::put('cart/quantity', [CartController::class, 'updateQtyCartItem'])->name('cart.updateQtyCartItem');
+        Route::put('cart/quantity-manual', [CartController::class, 'updateQtyCartItemManual'])->name('cart.updateQtyCartItemManual');
         Route::put('cart/status', [CartController::class, 'updateStatusCartItem'])->name('cart.updateStatusCartItem');
 
         Route::post('checkout', [StripeController::class, 'checkout'])->name('checkout');

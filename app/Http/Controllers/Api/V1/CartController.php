@@ -11,6 +11,7 @@ use App\Services\CartService;
 use App\Http\Requests\Cart\CartStoreRequest;
 use App\Http\Requests\Cart\CartSelectRequest;
 use App\Http\Requests\Cart\CartUpdateQtyRequest;
+use App\Http\Requests\Cart\CartUpdateQtyManualRequest;
 use App\Http\Requests\Cart\CartUpdateStatusRequest;
 use App\Http\Requests\Cart\CartDeleteRequest;
 
@@ -47,6 +48,13 @@ class CartController extends Controller
     public function updateQtyCartItem(CartUpdateQtyRequest $request)
     {
         $this->cartService->updateQtyCartItem($request);
+
+        return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
+    }
+
+    public function updateQtyCartItemManual(CartUpdateQtyManualRequest $request)
+    {
+        $this->cartService->updateQtyCartItemManual($request);
 
         return $this->customResponse('success', new CartCollection(Auth::user()->cartItems));
     }
