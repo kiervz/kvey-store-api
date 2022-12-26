@@ -21,12 +21,6 @@ class CreateCustomersTable extends Migration
             $table->string('phone', 20);
             $table->string('birthday', 20);
             $table->string('gender', 20);
-            $table->string('address_1', 499);
-            $table->string('address_2', 499);
-            $table->string('province', 50);
-            $table->string('city', 50);
-            $table->string('zip_code', 50);
-            $table->string('country_code', 50);
             $table->timestamps();
         });
     }

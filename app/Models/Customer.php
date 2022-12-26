@@ -13,17 +13,16 @@ class Customer extends Model
         "user_id",
         "phone",
         "birthday",
-        "gender",
-        "address 1",
-        "address 2",
-        "province",
-        "city",
-        "zip_code",
-        "country_code"
+        "gender"
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function address()
+    {
+        return $this->hasMany(Address::class);
     }
 }
